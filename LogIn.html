@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./LogIn.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:ital,wght@0,400;0,700;1,400;1,600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space Grotesk:wght@400;500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Abhaya Libre:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Georgia:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Work Sans:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space Mono:wght@400;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="log-in">
+      <header class="navigation3">
+        <div class="nav-nav-menu2">
+          <div class="marketplace2">
+            <img
+              class="rocketlaunch-icon6"
+              alt=""
+              src="./public/rocketlaunch.svg"
+            />
+
+            <div class="button13" id="goBackButton">Go Back</div>
+          </div>
+          <div class="connect-a-wallet3" id="connectWalletButton">
+            <img
+              class="rocketlaunch-icon7"
+              alt=""
+              src="./public/rocketlaunch.svg"
+            />
+
+            <div class="button14">Connect a wallet</div>
+          </div>
+          <button class="sign-up3" id="signUpButton">
+            <img class="user-icon3" alt="" src="./public/user1.svg" />
+
+            <div class="button15">Sign Up</div>
+          </button>
+        </div>
+        <img
+          class="navigation-inner"
+          loading="lazy"
+          alt=""
+          src="./public/group-3@2x.png"
+        />
+      </header>
+      <main class="create-account-section1">
+        <img
+          class="image-placeholder-icon2"
+          loading="lazy"
+          alt=""
+          src="./public/image-placeholder@2x.png"
+        />
+
+        <div class="account-form">
+          <div class="login-form">
+            <div class="close-icon-group" id="groupContainer">
+              <img
+                class="close-icon1"
+                loading="lazy"
+                alt=""
+                src="./public/close-icon.svg"
+              />
+
+              <div class="account-link">
+                <h1 class="already-have-account1">Create a new account</h1>
+              </div>
+            </div>
+            <div class="login-details">
+              <h1 class="log-in1">Log In</h1>
+              <h3 class="welcome-enter-your1">
+                Welcome! enter your details and start interacting with the
+                community.
+              </h3>
+            </div>
+            <div class="input-fields">
+              <div class="type-form4">
+                <div class="input-icons">
+                  <img
+                    class="envelopesimple-icon1"
+                    alt=""
+                    src="./public/envelopesimple.svg"
+                  />
+                </div>
+                <div class="username5">Email Address</div>
+                <img
+                  class="eyeslash-icon4"
+                  alt=""
+                  src="./public/eyeslash.svg"
+                />
+              </div>
+              <div class="type-form5">
+                <div class="lockkey-frame">
+                  <img
+                    class="lockkey-icon2"
+                    alt=""
+                    src="./public/lockkey.svg"
+                  />
+                </div>
+                <div class="username6">Password</div>
+                <img
+                  class="eyeslash-icon5"
+                  alt=""
+                  src="./public/eyeslash.svg"
+                />
+              </div>
+            </div>
+            <button class="button16" id="button" type="button">
+              <div class="rocket-icon">
+                <img
+                  class="rocketlaunch-icon8"
+                  alt=""
+                  src="./public/rocketlaunch2.svg"
+                />
+              </div>
+              <div class="button17">Let’s Go!</div>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById("goBackButton").addEventListener("click", function () {
+        window.location.href = "./index.html";
+      });
+
+      document.getElementById("connectWalletButton").addEventListener("click", function () {
+        window.location.href = "./Wallet.html";
+      });
+
+      document.getElementById("signUpButton").addEventListener("click", function () {
+        window.location.href = "./SignUp.html";
+      });
+
+      var groupContainer = document.getElementById("groupContainer");
+      if (groupContainer) {
+        groupContainer.addEventListener("click", function (e) {
+          window.location.href = "./SignUp.html";
+        });
+      }
+      
+      var button = document.getElementById("button");
+      if (button) {
+        button.addEventListener("click", function (e) {
+          window.location.href = "./Dashboard.html";
+        });
+      }
+    </script>
+  </body>
+</html>

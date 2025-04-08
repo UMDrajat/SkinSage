@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FAQs Skin Sage</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="text/javascript"></script>
+        <script src="app.js" defer></script>
+    </head>
+<body>
+    <header>
+        <h1>Skin Sage FAQs</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="./pages/business-overview.html">Business Overview</a></li>
+                <li><a href="./Skinsage ad.mp4">Our Ad</a></li>
+            </ul>
+        </nav>
+        <div id="walletStatus">
+            <button id="connect-btn">Connect To Token Wallet</button>
+            <span id="walletConnected" style="display:none;"><img src="src/green-check.png" alt="Connected" /></span>
+        </div>
+    </header>
+
+    <section id="hero">
+        <h2>Welcome to Our Token Launch!</h2>
+        <p id="contract-title">Token Name (SYMBOL)</p>
+        <p>Total Supply: <span id="total-supply-el">0</span> tokens</p>
+        <p>Your Balance: <span id="user-balance-el">0</span> tokens</p>
+        <input type="number" id="tokenAmount" placeholder="Enter token amount" min="1" step="1">
+        <button id="buyTokenBtn">Buy Tokens</button>
+        <p id="feedback-msg"></p>
+        <p id="error-msg" style="color: red;"></p>
+    </section>
+
+    <section id="bio">
+        <h2>Thank You Professor Tej & Professor James for the Lessons and Guidance!</h2>
+        <p>For more information about our business plan etc., please 
+            visit the <a href="./pages/business-overview.html">Business Overview</a> page.</p>
+    </section>
+
+    <script>
+
+// app.js
+document.addEventListener('DOMContentLoaded', function () {
+    const app = {
+        ethereum: window.ethereum,
+        provider: null,
+        signer: null,
+        contract: null,
+        accounts: null,
+        contractAddress: "0x486ab78296b0e36d5aef1b2493bfc908c1765ddd", // Our contract address
+        erc20Abi: [
+            "function name() view returns (string)",
+            "function symbol() view returns (string)",
+            "function totalSupply() view returns (uint256)",
+            "function balanceOf(address) view returns (uint256)",
+            "function transfer(address to, uint256 amount) returns (bool)"
+        ],
+        domElements: {
+            connectBtn: document.getElementById('connect-btn'),
+            contractTitle: document.getElementById('contract-title'),
+            totalSupplyEl: document.getElementById('total-supply-el'),
+            userBalanceEl: document.getElementById('user-balance-el'),
+            feedbackMsgEl: document.getElementById('feedback-msg'),
+            errorMsgEl: document.getElementById('error-msg')
+        },
+
+        init: function() {
+            this.bindEvents();
+            this.checkWallet();
+        },
+
+        bindEvents: function() {
+            this.domElements.connectBtn.addEventListener('click', this.connectWallet.bind(this));
+        },
+
+        checkWallet: function() {
+            if (!this.ethereum) {
+                this.displayError("Please install MetaMask to use this site.");
+                return;
+            }
+            this.provider = new ethers.providers.Web3Provider(this.ethereum);
+        },
+
+        connectWallet: async function() {
+            try {
+                this.accounts = await this.provider.send("eth_requestAccounts", []);
+                this.signer = this.provider.getSigner();
+                this.updateContractDetails();
+            } catch (error) {
+                this.displayError("Failed to connect wallet. " + error.message);
+            }
+        },
+
+        updateContractDetails: async function() {
+            try {
+                this.contract = new ethers.Contract(this.contractAddress, this.erc20Abi, this.signer);
+                const name = await this.contract.name();
+                const symbol = await this.contract.symbol();
+                const totalSupply = await this.contract.totalSupply();
+                const userBalance = await this.contract.balanceOf(this.accounts[0]);
+
+                this.domElements.contractTitle.innerText = `${name} (${symbol})`;
+                this.domElements.totalSupplyEl.innerText = ethers.utils.formatUnits(totalSupply, 18);
+                this.domElements.userBalanceEl.innerText = ethers.utils.formatUnits(userBalance, 18);
+                this.displayFeedback("Contract details updated successfully.");
+            } catch (error) {
+                this.displayError("Failed to fetch contract details. " + error.message);
+            }
+        },
+
+        displayFeedback: function(message) {
+            this.domElements.feedbackMsgEl.innerText = message;
+            setTimeout(() => {
+                this.domElements.feedbackMsgEl.innerText = '';
+            }, 5000);
+        },
+
+        displayError: function(message) {
+            this.domElements.errorMsgEl.innerText = message;
+            setTimeout(() => {
+                this.domElements.errorMsgEl.innerText = '';
+            }, 5000);
+        }
+    };
+
+    app.init();
+});
+</script>
+</body>
+</html>
